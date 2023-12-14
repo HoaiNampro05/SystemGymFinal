@@ -69,18 +69,32 @@ def xac_dinh_chuan_doan_theo_ds_trieu_chung_vungct(dstc,vct):
     dscdf.sort(key=lambda x: x.diem, reverse=True)
     return dscdf
 
+def tim_pp_dieu_tri_theo_chuan_doan(cd):
+    lspp = get_dspp_dieu_tri_theo_chuan_doan(cd)
+    for pp in lspp:
+        print("Bạn có thể: ", pp.moTa)
+        print('bạn đã thực hiện phương pháp trên chưa??')
+        print('1. đã và không thấy hiệu quả')
+        print('2. đã và thấy hiệu quả')
+        print('3. chưa')
+        a = input('vui lòng chọn 1 phương án\n')
+        a = int(a)
+        if a == 2 or a == 3:
+            print('vậy hãy tiếp tục thực hiện\n')
+            break
 
+
+def dua_ra_loi_khuyen_theo_chuan_doan(cd):
+    dslk = get_loi_khuyen_theo_chuan_doan(cd)
+    for lk in dslk:
+        print(lk.moTa)
 v = xac_dinh_vung_chan_thuong()
 ls = xac_dinh_ds_trieu_chung(v)
 
 for x in ls:
     print(type(x.doLienQuan))
     print(x.doLienQuan)
-
 dscdf = xac_dinh_chuan_doan_theo_ds_trieu_chung_vungct(ls,v)
-print("------------------------")
-for x in dscdf:
-    print(x.chuandoan.id)
-    print(x.chuandoan.moTa)
-    print(x.chuandoan.idVungChanThuong)
-    print(x.diem)
+print(len(dscdf))
+tim_pp_dieu_tri_theo_chuan_doan(dscdf[0].chuandoan)
+dua_ra_loi_khuyen_theo_chuan_doan(dscdf[0].chuandoan)

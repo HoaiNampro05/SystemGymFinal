@@ -58,8 +58,26 @@ def get_ds_chuan_doan_theo_vung_CT(vungct):
         ls.append(cd)
     return ls
 
-def get_pp_dieu_tri_theo_chuan_doan(cd):
-    pass
+def get_dspp_dieu_tri_theo_chuan_doan(cd):
+    connection = get_connection()
+    cursor = connection.cursor()
+    ls = []
+    cursor.execute(
+        f"select * from ppdieutri where id in (select idppdieutri from chuandoan_ppdieutri where idchuandoan={cd.id})")
+    results = cursor.fetchall()
+    for row in results:
+        ppdt = PPDieuTri(row[0], row[1])
+        ls.append(ppdt)
+    return ls
 
 def get_loi_khuyen_theo_chuan_doan(cd):
-    pass
+    connection = get_connection()
+    cursor = connection.cursor()
+    ls = []
+    cursor.execute(
+        f"select * from loikhuyen where id in (select idloikhuyen from chuandoan_loikhuyen where idchuandoan={cd.id})")
+    results = cursor.fetchall()
+    for row in results:
+        lk = LoiKhuyen(row[0], row[1])
+        ls.append(lk)
+    return ls
